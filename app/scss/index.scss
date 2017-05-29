@@ -1,0 +1,13 @@
+.index{
+    height: 100px;
+    font-size: 26px;  /*px*/
+    width: 1rem;
+    .son{
+        font-size: 16px; /*px*/
+    }
+}
+html,body{
+    height: 100%;
+    width: 100%;
+    background: red;
+}
