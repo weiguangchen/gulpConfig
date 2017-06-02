@@ -15,6 +15,11 @@
   font-size: 39px;
 }
 
+.index .son {
+  -webkit-transform: scale(0.5);
+          transform: scale(0.5);
+}
+
 [data-dpr="1"] .index .son {
   font-size: 8px;
 }
@@ -25,4 +30,11 @@
 
 [data-dpr="3"] .index .son {
   font-size: 24px;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background: red;
 }
