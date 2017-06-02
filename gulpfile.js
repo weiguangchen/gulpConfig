@@ -8,6 +8,9 @@ var runSequence = require('run-sequence');
 var rev = require('gulp-rev');
 var revCollector = require('gulp-rev-collector');
 var babel = require('gulp-babel');
+var cssmin = require('gulp-cssmin');
+var jsmin = require('gulp-uglify');
+var rename = require('gulp-rename');
 
 var bs = require('browser-sync').create();
 var reload = bs.reload;
@@ -73,6 +76,13 @@ gulp.task('revCss', function () {
         .pipe(rev.manifest())
         .pipe(gulp.dest('./rev/css'));
 });
+// 压缩css
+gulp.task('cssmin', function () {
+    return gulp.src('./build/css/*.css')
+        .pipe(cssmin())
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(gulp.dest(dist + '/css'));
+})
 //js生成文件hash编码并生成 rev-manifest.json文件名对照映射
 gulp.task('revJs', function () {
     return gulp.src('./build/js/*.js')
@@ -80,6 +90,13 @@ gulp.task('revJs', function () {
         .pipe(rev.manifest())
         .pipe(gulp.dest('./rev/js'));
 });
+// 压缩js
+gulp.task('jsmin', function () {
+    return gulp.src('./build/js/*.js')
+        .pipe(jsmin())
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(gulp.dest(dist + '/js'));
+})
 //Html替换css、js文件版本
 gulp.task('revHtml', function () {
     return gulp.src(['./rev/**/*.json', html])
@@ -93,6 +110,8 @@ gulp.task('dist', function (done) {
     runSequence(    //需要说明的是，用gulp.run也可以实现以上所有任务的执行，只是gulp.run是最大限度的并行执行这些任务，而在添加版本号时需要串行执行（顺序执行）这些任务，故使用了runSequence.
         // ['assetRev'],
         // ['es6'],
+        ['cssmin'],
+        ['jsmin'],
         ['revCss'],
         ['revJs'],
         ['revHtml'],

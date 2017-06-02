@@ -18,10 +18,13 @@
     "browser-sync": "^2.18.12",
     "gulp-asset-rev": "0.0.15",
     "gulp-babel": "^6.1.2",
+    "gulp-cssmin": "^0.2.0",
     "gulp-postcss": "^7.0.0",
+    "gulp-rename": "^1.2.2",
     "gulp-rev": "^7.1.2",
     "gulp-rev-collector": "^1.2.2",
     "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^3.0.0",
     "postcss-px2rem": "^0.3.0",
     "run-sequence": "^1.2.2"
   }
