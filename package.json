@@ -18,6 +18,7 @@
     "browser-sync": "^2.18.12",
     "gulp-asset-rev": "0.0.15",
     "gulp-babel": "^6.1.2",
+    "gulp-content-includer": "0.0.7",
     "gulp-cssmin": "^0.2.0",
     "gulp-postcss": "^7.0.0",
     "gulp-rename": "^1.2.2",

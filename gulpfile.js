@@ -11,6 +11,7 @@ var babel = require('gulp-babel');
 var cssmin = require('gulp-cssmin');
 var jsmin = require('gulp-uglify');
 var rename = require('gulp-rename');
+var contentIncluder = require('gulp-content-includer');
 
 var bs = require('browser-sync').create();
 var reload = bs.reload;
@@ -28,13 +29,23 @@ var htmlrev = dist + '/view';
 var images = app + '/images/**/*.img';
 
 // 开启本地服务器
-gulp.task('serve', ['postcss', 'es6'], function () {
+gulp.task('serve', ['postcss', 'es6', 'template'], function () {
     bs.init({
-        server: app
+        server: './'
     })
     gulp.watch(scss, ['postcss']);
     gulp.watch(jssrc, ['es6']);
+    gulp.watch(html, ['template'])
     gulp.watch(html).on('change', reload);
+})
+
+// 合并template模板
+gulp.task('template', function () {
+    return gulp.src(html)
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(gulp.dest('./app/html'));
 })
 
 // 编译scss
@@ -49,6 +60,7 @@ gulp.task('postcss', function () {
             remove: true //是否去掉不必要的前缀 默认：true
         })]))
         .pipe(gulp.dest(build + '/css'))
+        .pipe(gulp.dest(app + '/css'))
         .pipe(reload({ stream: true }));
 });
 
